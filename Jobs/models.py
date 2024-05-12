@@ -49,6 +49,7 @@ class Job(models.Model):
     objects = models.Manager() # The default manager
     published = PublishManager() # The costom manager
     status = models.CharField(max_length=2,choices = Status.choices, default = Status.DRAFT)
+
     
     
 
@@ -152,14 +153,23 @@ class FAQ(models.Model):
         return self.question
     
 # job tag
+# 
 class Tags(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    tag = models.CharField(max_length=250)
-    discription = models.TextField()
-    def __str__(self):
-        return self.tag
-    
-    
+    Tagss = models.CharField(max_length=100)
+    is_important = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_featured = models.BooleanField(default=False)
+    category_flags = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        # Concatenate boolean fields into a single string
+        self.category_flags = ",".join([
+            str(int(self.is_important)),
+            str(int(self.is_active)),
+            str(int(self.is_featured))
+        ])
+        super().save(*args, **kwargs)
     
 
 # class PublishManager(models.Manager):

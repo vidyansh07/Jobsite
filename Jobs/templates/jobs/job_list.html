@@ -156,39 +156,7 @@
                     <!-- HTML -->
                     
                     <!-- CSS -->
-                    <style>
-                        .card-link {
-                            text-decoration: none;
-                            color: inherit;
-                        }
-
-                        .card {
-                            background-color: #fff;
-                            border-radius: 8px;
-                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                            padding: 20px;
-                            transition: transform 0.3s ease;
-                            width: 100%;
-                        }
-
-                        .card:hover {
-                            transform: translateY(-5px);
-                        }
-
-                        .job-title {
-                            font-size: 1.5rem;
-                            margin-bottom: 10px;
-                        }
-
-                        .job-info {
-                            font-size: 1rem;
-                            color: #666;
-                        }
-
-                        .job-info p {
-                            margin: 5px 0;
-                        }
-                    </style>
+                   
 
                     <!-- JavaScript -->
                     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
@@ -228,27 +196,28 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/glide.js"></script>
     <script>
-        const glide = new Glide('#second-slider', {
-            type: 'carousel',
-            perView: 5,
-            breakpoints: {
-                1024: {
-                    perView: 3
-                },
-                640: {
-                    perView: 1
-                }
-            }
-        }).mount();
+      const glide = new Glide('.glide', {
+        type: 'carousel',
+        perView: 3,
+        breakpoints: {
+          1024: {
+            perView: 3
+          },
+          640: {
+            perView: 1
+          }
+        }
+      }).mount();
     
-        document.querySelector('.prev').addEventListener('click', () => {
-            glide.go('<');
-        });
+      document.querySelector('.prev').addEventListener('click', () => {
+        glide.go('<');
+      });
     
-        document.querySelector('.next').addEventListener('click', () => {
-            glide.go('>');
-        });
+      document.querySelector('.next').addEventListener('click', () => {
+        glide.go('>');
+      });
     </script>
+    
     
 <!-- End Testimonial slider -->
 
@@ -257,7 +226,37 @@
 
 <div class="mt-8">
     <div class="mb-5">
-        <h1 class="text-2xl font-bold text-gray-700">Latest Jobs</h1>
+        <div style="display: flex; justify-content: space-between;">
+            <h1 class="text-2xl font-bold text-gray-700">Latest Jobs</h1>
+            <a href="#" class="text-right text-gray-800">See all</a>
+          </div>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {% for job in jobs %}
+            <div class="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300 ease-in-out">
+                <a href="{% url 'jobs:job_detail' job.slug %}" class="hover:underline">
+                    <h2 class="text-lg font-semibold text-blue-600 mb-2">{{ job.job_title }}</h2>
+                </a>
+                <p class="text-sm text-gray-500">{{ job.short_description }}</p>
+                <div class="text-sm text-gray-600 mt-2">
+                    <i class="fas fa-building mr-1"></i> {{ job.company_name }}
+                </div>
+                <div class="text-sm text-gray-600">
+                    <i class="fas fa-map-marker-alt mr-1"></i> {{ job.location }}
+                </div>
+                <div class="text-sm text-gray-600">
+                    <i class="fas fa-clock mr-1"></i> {{ job.date_posted }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="mt-8">
+    <div class="mb-5">        
+        <div style="display: flex; justify-content: space-between;">
+        <h1 class="text-2xl font-bold text-gray-700">Latest Syllabus</h1>
+        <a href="#" class="text-right text-gray-800">See all</a>
+      </div>
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for job in jobs %}
             <div class="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300 ease-in-out">
@@ -281,31 +280,11 @@
 </div>
 <div class="mt-8">
     <div class="mb-5">
-        <h1 class="text-2xl font-bold text-gray-700">Latest Jobs</h1>
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {% for job in jobs %}
-            <div class="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300 ease-in-out">
-                <a href="{% url 'jobs:job_detail' job.slug %}" class="hover:underline">
-                    <h2 class="text-lg font-semibold text-blue-600 mb-2">{{ job.job_title }}</h2>
-                </a>
-                <p class="text-sm text-gray-500">{{ job.short_description }}</p>
-                <div class="text-sm text-gray-600 mt-2">
-                    <i class="fas fa-building mr-1"></i> {{ job.company_name }}
-                </div>
-                <div class="text-sm text-gray-600">
-                    <i class="fas fa-map-marker-alt mr-1"></i> {{ job.location }}
-                </div>
-                <div class="text-sm text-gray-600">
-                    <i class="fas fa-clock mr-1"></i> {{ job.date_posted }}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<div class="mt-8">
-    <div class="mb-5">
-        <h1 class="text-2xl font-bold text-gray-700">Latest Jobs</h1>
+        <div style="display: flex; justify-content: space-between;">
+            <h1 class="text-2xl font-bold text-gray-700">Latest Result</h1>
+            <a href="#" class="text-right text-gray-800">See all</a>
+          </div>
+        
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for job in jobs %}
             <div class="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition duration-300 ease-in-out">

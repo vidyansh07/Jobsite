@@ -30,17 +30,16 @@ class FAQInline(admin.StackedInline):
 class TagsInline(admin.StackedInline):
     model = Tags
     extra = 1
-
+    
+    
 
 class JobAdmin(admin.ModelAdmin):
     inlines = [JobImportantDatesInline, JobApplicationFeesInline, JobQualifyAgeInline, JobOpeningInline, jobApplyLinksInline, FAQInline, TagsInline]
     tag=TagsInline.model
-    list_display = ('job_title', 'company_name', 'location', 'created_by', 'tag')
+    list_display = ('job_title', 'company_name', 'location', 'created_by', 'tag', )
     search_fields = ('job_title', 'company_name', 'location', 'created_by')
     list_filter = ('created_by', 'location')
     ordering = ['created_by', 'location']
     prepopulated_fields = {'slug': ('job_title',)}
-    
-    
-        
+
 admin.site.register(Job, JobAdmin)

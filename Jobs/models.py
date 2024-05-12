@@ -50,12 +50,6 @@ class Job(models.Model):
     published = PublishManager() # The costom manager
     status = models.CharField(max_length=2,choices = Status.choices, default = Status.DRAFT)
 
-    
-    
-
-    
-    
-    
 
     class Meta:
         ordering = ['-date_posted']
@@ -66,6 +60,26 @@ class Job(models.Model):
         return self.job_title
     
 
+
+# job tag
+# 
+class Tags(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    tagss = models.CharField(max_length=100)
+    is_important = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+    category_flags = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        # Concatenate boolean fields into a single string
+        self.category_flags = ",".join([
+            str(int(self.is_important)),
+            str(int(self.is_active)),
+            str(int(self.is_featured))
+        ])
+        super().save(*args, **kwargs)
+    
 
 # Job Important Dates
 class JobImportantDates(models.Model):
@@ -152,26 +166,6 @@ class FAQ(models.Model):
     def __str__(self):
         return self.question
     
-# job tag
-# 
-class Tags(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    Tagss = models.CharField(max_length=100)
-    is_important = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_featured = models.BooleanField(default=False)
-    category_flags = models.TextField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        # Concatenate boolean fields into a single string
-        self.category_flags = ",".join([
-            str(int(self.is_important)),
-            str(int(self.is_active)),
-            str(int(self.is_featured))
-        ])
-        super().save(*args, **kwargs)
-    
-
 # class PublishManager(models.Manager):
 #     def get_queryset(self):
 #         return super().get_queryset().filter(status = self.model.Status.PUBLISHED)

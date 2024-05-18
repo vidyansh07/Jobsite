@@ -33,7 +33,7 @@ class Job(models.Model):
     
     job_title = models.CharField(max_length=250)
     job_title_hindi = models.CharField(max_length=250, blank= True)
-    job_tag = models.CharField(max_length=250, blank= True)
+    # job_tag = models.CharField(max_length=250, blank= True)
     slug = models.SlugField(max_length=250, unique_for_date='date_posted', default = "")
     short_description = models.TextField()
     short_description_hindi = models.TextField(default = "")
@@ -66,9 +66,12 @@ class Job(models.Model):
 class Tags(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     tagss = models.CharField(max_length=100)
-    is_important = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
-    is_featured = models.BooleanField(default=False)
+    Government = models.BooleanField(default=False)
+    Private = models.BooleanField(default=False)
+    internship = models.BooleanField(default=False)
+    Fulltime = models.BooleanField(default=False)
+    Exam = models.BooleanField(default=False)
+    result = models.BooleanField(default=False)
     category_flags = models.TextField(blank=True, null=True)
 
     def save(self, *args, **kwargs):

@@ -228,7 +228,7 @@
     <div class="mb-5">
         <div style="display: flex; justify-content: space-between;">
             <h1 class="text-2xl font-bold text-gray-700">Latest Jobs</h1>
-            <a href="#" class="text-right text-gray-800">See all</a>
+            <a href="{% url 'jobs:joblist'  %}" class="text-right text-gray-800">See all</a>
           </div>
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for job in jobs %}
@@ -282,7 +282,7 @@
     <div class="mb-5">
         <div style="display: flex; justify-content: space-between;">
             <h1 class="text-2xl font-bold text-gray-700">Latest Result</h1>
-            <a href="#" class="text-right text-gray-800">See all</a>
+            <a href="{% url 'jobs:joblist'  %}" class="text-right text-gray-800">See all</a>
           </div>
         
         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold text-center my-4">All jobs</h1>
+
+
+    <div class="w-full max-w-5xl">
+        {% for job in page_obj %}
+        <figure class="md:flex bg-white rounded-xl p-8 md:p-0 transform transition-transform duration-500 hover:scale-105 shadow-lg mb-4">
+            {# Job content here, e.g., job title and description #}
+            <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+                <blockquote>
+                    <p class="text-lg font-medium text-gray-900">
+                        {{ job.job_title }}  <!-- Replace with your job title field -->
+                    </p>
+                </blockquote>
+                <figcaption class="font-medium">
+                    <div class="text-sky-500">
+                        {{ job.company }}  <!-- Replace with your job company field -->
+                    </div>
+                    <div class="text-gray-700">
+                        {{ job.location }}  <!-- Replace with your job location field -->
+                    </div>
+                </figcaption>
+            </div>
+        </figure>
+        {% endfor %}
+
+        <div class="flex justify-center mt-8">
+            <nav class="block">
+                <ul class="flex pl-0 rounded list-none flex-wrap">
+                    {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-white text-gray-600">
+                            &laquo;
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <span class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed">
+                            &laquo;
+                        </span>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li>
+                        <span class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-blue-500 text-white">
+                            {{ num }}
+                        </span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                    <li>
+                        <a href="?page={{ num }}" class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-white text-gray-600">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page={{ page_obj.next_page_number }}" class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-white text-gray-600">
+                            &raquo;
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <span class="first:ml-0 text-xs font-semibold flex w-10 h-10 mx-1 p-0 rounded-full justify-center items-center leading-tight relative border border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed">
+                            &raquo;
+                        </span>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

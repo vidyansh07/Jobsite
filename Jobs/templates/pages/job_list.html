@@ -4,16 +4,17 @@
 
 <h1 class="text-3xl font-bold text-center my-4">All jobs</h1>
 
-
+<div class="items-center justify-center flex" >
     <div class="w-full max-w-5xl">
         {% for job in page_obj %}
         <figure class="md:flex bg-white rounded-xl p-8 md:p-0 transform transition-transform duration-500 hover:scale-105 shadow-lg mb-4">
             {# Job content here, e.g., job title and description #}
             <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
                 <blockquote>
+                    <a href="{% url 'jobs:job_detail' job.slug %}" class="hover:underline">
                     <p class="text-lg font-medium text-gray-900">
                         {{ job.job_title }}  <!-- Replace with your job title field -->
-                    </p>
+                    </p></a>
                 </blockquote>
                 <figcaption class="font-medium">
                     <div class="text-sky-500">
@@ -76,6 +77,7 @@
                 </ul>
             </nav>
         </div>
+    </div>
     </div>
 </div>
 

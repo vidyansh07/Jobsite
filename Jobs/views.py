@@ -5,7 +5,9 @@ from django.core.paginator import Paginator
 
 def job_main(request):
     jobs = Job.published.all()
-    return render(request, 'jobs/job_main.html', {'jobs': jobs})
+    card = 1
+    return render(request, 'jobs/job_main.html', {'jobs': jobs,
+                                                  "card": card})
 
 
 def job_detail(request, slug):

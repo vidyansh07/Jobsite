@@ -65,7 +65,7 @@ class Job(models.Model):
 # 
 class Tags(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    tagss = models.CharField(max_length=100)
+    Own_tags = models.CharField(max_length=100)
     Government = models.BooleanField(default=False)
     Private = models.BooleanField(default=False)
     internship = models.BooleanField(default=False)
@@ -76,11 +76,39 @@ class Tags(models.Model):
 
     def save(self, *args, **kwargs):
         # Concatenate boolean fields into a single string
-        self.category_flags = ",".join([
-            str(int(self.is_important)),
-            str(int(self.is_active)),
-            str(int(self.is_featured))
-        ])
+        if self.Own_tags==None:
+            self.category_flags = ",".join([
+                " Govrnment :",
+                str(int(self.Government)),
+                " Private : ",
+                str(self.Private),
+                " Internship : ",
+                str*(self.internship),
+                " Fulltime : ",
+                str*(self.Fulltime),
+                " Exam : ",
+                str*(self.Exam),
+                " Result : ",
+                str*(self.result)
+            ])
+        else:
+            self.tagss = ",".join([
+                "new_tag",
+                str(self.Own_tags),
+                " Govrnment :",
+                str(int(self.Government)),
+                " Private : ",
+                str(int(self.Private)),
+                " Internship : ",
+                str(int(self.internship)),
+                " Fulltime : ",
+                str(int(self.Fulltime)),
+                " Exam : ",
+                str(int(self.Exam)),
+                " Result : ",
+                str(int(self.result))
+            ])
+            
         super().save(*args, **kwargs)
     
 

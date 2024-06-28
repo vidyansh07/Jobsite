@@ -25,6 +25,9 @@
                 </button>
             </div>
             <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row items-center space-x-1 md:space-x-0">
+                <div class="w-full mb-2 md:hidden">
+                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-20 p-2.5" placeholder="Search...">
+                </div>
                 <a href="{% url 'jobs:job_main'  %}" class="py-5 px-3 text-gray-700 hover:text-gray-900">Home</a>
                 <a href="{% url 'jobs:joblist'  %}" class="py-5 px-3 text-gray-700 hover:text-gray-900">Jobs</a>
                 <a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Result</a>
@@ -38,8 +41,47 @@
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             var menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+            if (!menu.classList.contains('hidden')) {
+                menu.style.height = 'auto'; // Adjust height to auto for expanded state
+            } else {
+                menu.style.height = '0'; // Collapse height to 0 when hidden
+            }
         });
     </script>
+    
+    <style>
+        /* Mobile menu expanded styling */
+        #mobile-menu.hidden {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+    
+        #mobile-menu {
+            height: auto;
+            transition: height 0.3s ease;
+        }
+    
+        @media (max-width: 768px) {
+            #mobile-menu {
+                flex-direction: column;
+                width: 100%;
+                background-color: white;
+                position: absolute;
+                top: 60px; /* Adjust based on your navbar height */
+                left: 0;
+                right: 0;
+                z-index: 10;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 10px 0; /* Add padding to accommodate the search box */
+            }
+    
+            #mobile-menu > .w-full {
+                margin-bottom: 10px; /* Space between search box and menu items */
+            }
+        }
+    </style>
+    
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         {% block content %}
